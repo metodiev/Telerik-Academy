@@ -1,0 +1,33 @@
+h1
+{
+	color:#C9C9C9;
+}
+
+body
+{
+	background-color:#595959;
+	font-family: italaic;
+}
+
+.circle 
+{
+	border-color:#42E01B;
+	width:20px;
+	height:20px;
+	border-radius:50px;
+	color:#42E01B;
+	background:#42E01B;
+}
+
+.silver{color:#C9C9C9;}
+.class{color:#D6D2D4;}
+.ocher{color:#F2F78D;}
+.red{color:red;}
+.orange{color:#FF9F19;}
+
+a
+{
+	color:#F2F78D;
+	text-decoration: none;
+	font-size:15px;
+}

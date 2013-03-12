@@ -1,0 +1,25 @@
+body
+{
+	background-color:skyblue;
+}
+ul.list li
+{
+	margin-left: 60px;
+			list-style: none;
+			display: inline;
+}
+span.span
+{
+	color:darkblue; 
+	font-weight:bold;
+}
+span.friends
+{
+	color:darkblue; 
+	font-size:20px;"
+}
+span.information
+{
+ color:darkblue;
+ font-size:19px;
+}

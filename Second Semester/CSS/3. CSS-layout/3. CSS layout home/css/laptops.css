@@ -1,0 +1,56 @@
+body 
+{
+	margin: 0;
+	width:80%;
+}
+
+nav li { display: inline-block; }
+a
+{
+	margin:-7px;
+	color:#00D4E3;
+	font-size:30px;
+}
+
+a { padding: 0 10px; }
+
+h2{
+	font-size:15px;
+	font-family:"Times New Roman", Times, serif;
+	color:
+}
+
+.border{ border: 1px solid #444; } 
+
+article 
+{
+	position: relative;
+	overflow: hidden;
+	padding: 10px 34px 0 0;
+}
+
+article section 
+{
+	float: left;
+	margin: 0 0 10px 10px;
+	padding: 10px 20px;
+	width: 80%px;
+} 
+
+
+article ul
+{  float:right;
+	margin-top:-100px;
+	list-style: none;
+}
+aside 
+{
+	margin:50px;
+	font-size:21px;
+	position: absolute;
+	top: 80px;
+	right: 60px;
+	bottom: 10px;
+	width: 302px;
+	text-align: center;
+} 

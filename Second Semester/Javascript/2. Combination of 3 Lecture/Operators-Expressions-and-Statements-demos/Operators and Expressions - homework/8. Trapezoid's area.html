@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Trapezoid's area </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+	<label for="a">side a:</label>
+		<input type="text" id="a"/>
+		<br />
+	<label for="b">side b:</label>
+		<input type="text" id="b"/>
+		<br />
+	<label for="height">height:</label>
+		<input type="text" id="height"/>
+		<br />
+		<a href="#" onclick="TrapezoidArea()">Input</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+			function TrapezoidArea()
+			{	
+	                var a = jsConsole.readInteger("#a");
+			var b = jsConsole.readInteger("#b");
+			var height = jsConsole.readInteger("#height");
+			//S = (a + b) / 2 * h.
+			  area = ((a+b) / 2) * height;
+        
+			jsConsole.writeLine("Trapeziod area" + " " + area);
+		}
+		</script>
+	</body>
+</html>

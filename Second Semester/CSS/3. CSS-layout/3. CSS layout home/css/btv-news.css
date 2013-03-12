@@ -1,0 +1,102 @@
+html body{
+	padding:0;
+	margin:0;
+}
+body{
+	background: black;
+	font-family: Arial,sans-serif;
+}
+
+ul, li{
+	margin:0 auto;
+	padding:0 ;
+	list-style:none;
+}
+
+a
+{
+	text-decoration:none;
+}
+
+.div{
+	width: 688px;
+	min-height: 365px;	
+	margin:100px auto 0 auto;
+	background: #1e3741;
+	border: 1px solid #337d8f;
+	border-radius: 8px;
+	padding-bottom: 10px;
+}
+
+
+nav
+{
+	width:100%;
+	height:34px;
+	margin: 10px 0;
+}
+
+nav ul li{
+	padding: 0 13px;
+	line-height: 34px;
+	background: #4b5f67;
+	font-size: 13px;
+	font-weight:bold;
+	color: #7b9ead;
+	float:left;
+	margin-right:1px;
+}
+
+nav ul li:hover
+{
+	text-decoration: underline;
+}
+
+nav ul a:first-child li
+{
+	 background: #1e3741;
+	 color: white;
+}
+aside{
+	margin-bottom: 10px; float:left; height:auto;
+}
+aside ul li{
+	width: 264px;
+	padding: 12px 10px;
+	font-size:13px;
+	color: #8ba39b;
+	font-weight:bold;
+}
+
+ aside ul a:nth-child(odd) li{
+	border: 1px solid #334952;
+	border-right:none;
+	border-left:none;
+}
+ aside ul a:nth-child(even) li{
+	border: 1px solid #29404a;
+	border-right:none;
+	border-left:none;
+}
+
+aside ul a li:hover, aside ul a:first-child li{
+	border: 1px solid #14585b;
+	border-right:none;
+	border-left:none;
+	background: #00968c;
+	color: white;
+}
+
+aside ul a:last-child li
+{
+	border-bottom:none;
+}
+.pic
+{
+	width:385px;
+	height:272px;
+	background:url('../images/btv.jpg');
+	margin-top: 0px;
+	margin-left: -2px auto;
+	float:left;
+}

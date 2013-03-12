@@ -1,0 +1,27 @@
+td.h1
+{
+	height:70px
+}
+
+textarea.textHW
+{
+	height:100px; 
+	width:300px;
+}
+
+input.inoutW
+{
+	width:10px;
+}
+
+table.bor table, tr, td
+{
+	border:1px solid black;
+}
+
+table td.submit
+{
+background:#98FB98;
+text-align:center;
+}
+

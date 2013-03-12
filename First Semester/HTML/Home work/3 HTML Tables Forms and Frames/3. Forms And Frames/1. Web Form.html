@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8">
+		<title>Web Form</title>
+		<link href="css/submit.css" type="text/css" rel="stylesheet"/>
+	</head>
+	<body>
+		<form name="web form" method="post"> 
+				<table class="bor">
+					<tr>
+						<td>Last Name</td>
+						<td>
+							<input type="text" name="LastName" value="Last Name" />
+						</td>
+				    </tr>
+				    <tr>
+						<td>First Name</td>
+						<td>
+							<input type="text" name="FirstName" value="First Name" />
+						</td>
+				  </tr>
+				  <tr>
+					<td>Address</td>
+					<td class="h1">
+					<textarea name="Comments" class="textHW"> 
+						Person address
+					</textarea>
+					</td>
+				 </tr>
+				 <tr>
+					<td>City</td>
+					<td>
+						<input type="text" name="city" value="City name"/>
+						 State
+						<input type="text" name="state" value="state name"/>
+					</td>
+				 </tr>
+				 <tr>
+					<td> Zip/Postal Code</td>
+					<td>
+						<input type="text" name="zip" value="1700" />
+					</td>
+				 </tr>
+				 <tr>
+					<td> Country</td>
+					<td>
+						<select name="country">
+								  <option value="Value 1"
+									selected="selected">Select Country</option>
+									 <option value="Value 2">USA</option>
+								  <option value="Value 2">Bulgaria</option>
+								  <option value="Value 3">UK</option>
+								  <option value="Value 4">Other</option>
+						</select>
+					</td>
+				 </tr>	
+				 <tr>
+					<td>
+						<label for="phone">Phone (country code,area code, number)</label>
+					</td>
+					<td> 
+						+
+						<input class="inputW" type="text" name="countryCode"  value="359" id="phone" />
+						<input type="text" name="areaCode" value="88"/>
+						-
+						<input type="text" name="number" value="8334343"/>
+					</td>
+				 </tr>
+				 <tr>
+					<td> E-mail</td>
+					<td>
+						<input id="emailInput" 
+							type="email" 
+							required="true" 
+							pattern="[a-zA-Z0-9_]{3,}@[a-zA-Z0-9_]{3,}.[a-zA-Z0-9_]{2,4}"
+							placeholder="sample@email.com"/>
+					</td>
+				 </tr>
+				 <tr>
+					<td>Birth date</td>
+					<td>
+						Month
+						<input type="text" name="month" value="06"/>
+						Day
+						<input type="text" name="day" value="14"/>
+						Year(4 digit)
+						<input type="text" name="year" value="1980"/>
+					</td>
+				 </tr>
+					<tr>
+						<td> Gender</td>
+						<td>
+							<select name="gender">
+							<option value="Value 1"
+							selected="selected">Male</option>
+							<option value="Value 2">Female</option>
+							</select>
+						</td>
+				 </tr>
+				 <tr>
+					<td>Starting Date</td>
+					<td>
+						<input type="radio" id="spring" name="starting date" value="Spring 2006" />
+						<label for="spring">Spring 2006</label>
+						<input type="radio" id="summer" name="starting date" value="RSummer 2006" />
+						<label for="summer">Summer 2006</label>
+					</td>
+				 </tr>
+				 <tr>
+					<td>Comments/Questions</td>
+					<td>
+						<textarea name="Comments">This is a multi-line text field</textarea>
+					</td>
+				 </tr>
+				 <tr>  
+					<td colspan="2" rowspan="2" class="submit" >
+						<input type="submit" name="submit" value="Send Form" />
+						<input type="reset"  name="Clear this Form" value="Clear this Form"/>
+					</td>
+				 </tr>
+			    </table>
+		</form>
+	</body>
+</html>

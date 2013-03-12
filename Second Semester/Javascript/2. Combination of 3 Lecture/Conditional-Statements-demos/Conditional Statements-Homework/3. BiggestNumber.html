@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bigest number </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		<label for="first">First number:</label>
+		<input type="text" id="first"/>
+		<br />							  
+		<label for="second">Second number: </label>
+		<input type="text" id="second"/>
+		<br />
+		<label for="third">Third number: </label>
+		<input type="text" id="third"/>
+		<br />
+		<a href="#" onclick="SignOfNumbers()">Result</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+			
+ 
+		 function SignOfNumbers()
+		{
+	                var first = jsConsole.readInteger("#first");
+			var second = jsConsole.readInteger("#second");
+			var third = jsConsole.readInteger("#third");
+		
+			if(first > second && first > third)
+			{
+				biggest = first;
+				if (second > third)
+				{
+					bigger = second;
+					big = third;
+				}
+				
+				else
+				{
+					big = second;
+					bigger = third;
+				}
+			
+				
+			}
+			
+			if(second > first && second > third)
+			{
+				biggest = second;
+				if (first > third)
+				{
+					bigger = first;
+					big = third;
+				}
+				
+				else
+				{
+					big = first;
+					bigger = third;
+				}
+				
+			}
+			
+			if(third > first && third > second)
+			{
+				biggest = third;
+				if (first > second)
+				{
+					bigger = first;
+					big = second;
+				}
+				
+				else
+				{
+					big = first;
+					bigger = second;
+				}
+				
+			}
+			
+			else
+			{
+				jsConsole.writeLine("Some numbers are equal");
+			}
+			
+			jsConsole.writeLine("Biggest number is:" + " " + biggest );
+			jsConsole.writeLine("Bigger number is:" + " " + bigger );
+			jsConsole.writeLine("Big number is:" + " " + big );
+			
+		}
+		</script>
+	</body>
+</html>

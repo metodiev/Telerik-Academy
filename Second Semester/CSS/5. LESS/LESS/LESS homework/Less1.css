@@ -1,0 +1,117 @@
+﻿body {
+  background-color: #9215f2;
+  color: white;
+}
+
+body #reg-form-container {
+  border-radius: 10px;
+  background-color: #9215f2;
+  float: right;
+  margin-top: -100px;
+}
+
+body nav a {color:white;}
+
+body a {text-decoration:none;}
+
+body button {
+  border: 1px solid;
+  border-style: outset;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background-color: #B35EF3;
+}
+body input {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 2px 5px;
+  margin: 5px;
+  background-color: #B35EF3;
+}
+body nav {
+  border: 1px solid black;
+  border-radius: 15px;
+  height: 40px;
+  width: 1030px;
+}
+body #main-nav-list li {
+  font-size: 17px;
+  display: inline;
+}
+body .sub-nav-list {
+  display: none;
+}
+body .sub-nav-llist:hover {
+  display: block;
+  text-decoration: underline;
+}
+body nav {
+  position: relative;
+  right: -27px;
+}
+body section {
+  position: relative;
+  right: -10px;
+}
+body .nav-list li {
+  display: inline;
+  color: white;
+  text-decoration: none;
+}
+body .nav-list a:hover {
+  text-decoration: underline;
+}
+body section article {
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 1039px;
+  margin: 20px;
+}
+body article header,
+body article footer,
+body article p {
+  margin: 20px;
+}
+body section article footer a,
+body article p {
+  text-decoration: none;
+  text-align: right;
+}
+body section article footer a:visited {
+  color: silver;
+}
+body aside {
+  float: right;
+  margin-top: -700px;
+  margin-right: -30px;
+}
+body aside ul li {
+  font-size: 14px;
+  border: 1px solid black;
+  border-radius: 10px;
+  list-style: none;
+  width: 300px;
+}
+body aside ul,
+body aside li,
+body aside h2,
+body aside p {
+  margin: 20px;
+}
+body aside ul li li {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+body aside > ul > li ul li {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  margin-right: -40px;
+  background: url(images/li-dot.png) no-repeat;
+  background-position: 0 50%;
+  padding-left: 25px;
+}
+body footer {
+  text-align: center;
+  color: white;
+}

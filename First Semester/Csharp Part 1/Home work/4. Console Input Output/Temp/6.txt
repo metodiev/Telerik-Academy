@@ -1,0 +1,78 @@
+using System;
+using System.Threading;
+ 
+public struct Position
+{
+    public int X, Y;
+    public Position(int x, int y)
+    {
+        this.X = x;
+        this.Y = y;
+    }
+}
+class FallingRocks
+{
+    static void PrepareTheConsole()
+    {
+        Console.CursorVisible = false;
+        Console.BufferHeight = Console.WindowHeight;
+        Console.BufferWidth = Console.WindowWidth;
+        Console.Title = "Falling rocks.";
+    }
+    static Position dwarf;
+ 
+    static void PrintAtPosition(int x, int y, char symbol)
+    {
+        Console.SetCursorPosition(x, y);
+        Console.Write(symbol);
+    }
+    static void DrawDwarf()
+    {
+        PrintAtPosition(dwarf.X - 1, dwarf.Y, '(');
+        PrintAtPosition(dwarf.X, dwarf.Y, 'O');
+        PrintAtPosition(dwarf.X + 1, dwarf.Y, ')');
+    }
+ 
+    static void MoveDwarfLeft()
+    {
+        if (dwarf.X > 1)
+        {
+            Console.MoveBufferArea(dwarf.X - 1, dwarf.Y, 3, 1, dwarf.X - 2, dwarf.Y);
+            dwarf.X--;
+        }
+    }
+ 
+    static void MoveDwarfRight()
+    {
+        Console.SetCursorPosition(0, 0);
+        if (dwarf.X <= Console.WindowWidth - 3)
+        {
+            Console.MoveBufferArea(dwarf.X - 1, dwarf.Y, 3, 1, dwarf.X, dwarf.Y);
+            dwarf.X++;
+        }
+    }
+ 
+    static void Main()
+    {
+        PrepareTheConsole();
+        dwarf = new Position(Console.WindowWidth / 2 - 1, Console.WindowHeight - 1);
+        DrawDwarf();
+ 
+        while (true)
+        {
+            while (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.LeftArrow)
+                {
+                    MoveDwarfLeft();
+                }
+                if (keyInfo.Key == ConsoleKey.RightArrow)
+                {
+                    MoveDwarfRight();
+                }
+            }
+            Thread.Sleep(150);
+        }
+    }
+}

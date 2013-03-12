@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Submit Web Page</title>
+	</head>
+	<body>
+		<form>
+			<label for="memberInput">
+			Member name:
+			</label>	
+			<input id="memberInput" 
+					type="member" 
+					required="true" 
+					placeholder="Name"/>
+			<br/>		
+			<label for="emailInput">
+			Email:
+			</label>
+			<input id="emailInput" 
+			type="email" 
+			required="true" 
+			pattern="[a-zA-Z0-9_]{3,}@[a-zA-Z0-9_]{3,}.[a-zA-Z0-9_]{2,4}"
+			placeholder="YourMail@email.com"/>
+			<br/>
+		    <label for="schoolInput">School:</label>
+			<input  id="schoolInput"
+				type="school" 
+				required="true" 
+				placeholder="School"/>
+				<br/>
+				<input type="image" src="img/submit.jpg" 
+				alt="submit"/>		
+		</form>
+	</body>
+</html>

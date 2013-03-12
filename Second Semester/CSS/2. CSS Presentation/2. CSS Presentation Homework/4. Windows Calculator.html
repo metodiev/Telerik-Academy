@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title> Windows Calculator</title>
+		<link rel="stylesheet" type="text/css" href="css/calculator.css"/>
+	</head>
+	<body>
+		<section class="position">
+		<ul>
+			<li class="menu">
+				View
+			</li>
+			<li class="menu">
+				Edit
+			</li>
+			<li class="menu">
+				Help
+			</li>
+		</ul>
+		<input class="textbox" type="text" name="Textbox" value="8854455"/>
+		<table class="divzeros">
+            <tr>
+                <td>0000</td>
+				<td>0000</td>
+				<td>0000</td>
+				<td>0000</td>
+				<td>0000</td>
+				<td>0000</td>
+				<td>0000</td>
+				<td>0000</td>
+            </tr>
+            <tr>
+                <td>63 </td>
+				<td>47 </td> 
+				<td>32</td>
+            </tr>
+
+            <tr>
+                <td>0000</td>
+				<td>0000</td>
+				<td>1000</td>
+				<td>0111</td>
+				<td>0001</td>
+				<td>1011</td>
+				<td>1011</td>
+				<td>0111</td>
+            </tr>
+            <tr>
+                <td>31</td> 
+				<td>15</td>
+				<td class="pos">0</td>
+            </tr>
+			<tr>
+			</tr>
+			<tr>
+        </table>
+		<form>
+			<ul class="decimal">
+				<li ><label><input type="radio" value="heximal" /> Hex</label></li>
+				<li><label><input type="radio" value="decimal" checked /> Dec</label></li>
+				<li><label><input type="radio" value="oct" /> Oct</label></li>
+				<li><label><input type="radio" value="bininary" /> Bin</label></li>
+			</ul>
+		</form>
+		<form>
+			<ul class="decimal">
+				<li><label><input type="radio" value="qword" checked /> Qword</label></li>
+				<li><label><input type="radio" value="dword" /> Dword</label></li>
+				<li><label><input type="radio" value="word" /> Word</label></li>
+				<li><label><input type="radio" value="byte" /> Byte</label></li>
+			</ul>
+		</form>
+		<form class="form">
+                <div class="table">
+                    <button class="btn">&nbsp;</button>
+                    <button class="btn">Mod</button>
+                    <button class="btn" disabled>A</button>
+                    <button class="btn">MC</button>
+                    <button class="btn">MR</button>
+                    <button class="btn">MS</button>
+                    <button class="btn">M+</button>
+                    <button class="btn">M-</button>
+                </div>
+
+                <div class="table">
+                    <button class="btn">(</button>
+                    <button class="btn">)</button>
+                    <button class="btn" disabled>B</button>
+                    <button class="btn">?</button>
+                    <button class="btn">CE</button>
+                    <button class="btn">C</button>
+                    <button class="btn">±</button>
+                    <button class="btn" disabled>v</button>
+                </div>
+
+                <div class="table">
+                    <button class="btn">RoL</button>
+                    <button class="btn">RoR</button>
+                    <button class="btn" disabled>C</button>
+                    <button class="btn">7</button>
+                    <button class="btn">8</button>
+                    <button class="btn">9</button>
+                    <button class="btn">/</button>
+                    <button class="btn" disabled>%</button>
+                </div>
+
+                <div class="table">
+                    <button class="btn">Or</button>
+                    <button class="btn">Xor</button>
+                    <button class="btn" disabled>D</button>
+                    <button class="btn">4</button>
+                    <button class="btn">5</button>
+                    <button class="btn">6</button>
+                    <button class="btn">*</button>
+                    <button class="btn" disabled>1/x</button>
+                </div>
+
+                <div class="table">
+                    <div class="div">
+                        <div class="table">
+                            <button class="btn">Lsh</button>
+                            <button class="btn">Rsh</button>
+                            <button class="btn" disabled>E</button>
+                            <button class="btn">1</button>
+                            <button class="btn">2</button>
+                            <button class="btn">3</button>
+                            <button class="btn">-</button>
+                        </div>
+
+                        <div class="table">
+                            <button class="btn">Not</button>
+                            <button class="btn">And</button>
+                            <button class="btn" disabled>F</button>
+                            <button class="btn">0</button>
+                            <button class="btn" disabled>.</button>
+                            <button class="btn">+</button>
+							<button class="btn">.</button>
+                        </div>
+                    </div>
+                    <button class="btn equal"><strong>=</strong></button>
+                </div>
+            </form>
+		</section>
+	</body>
+</html>

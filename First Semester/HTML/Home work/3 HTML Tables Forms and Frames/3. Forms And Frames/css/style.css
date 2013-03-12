@@ -1,0 +1,31 @@
+ol.list li
+{
+	margin-left: 10px;
+			list-style: none;
+			display: inline;
+}
+tr.bold
+{
+	font-weight:bold;
+	font-size:17px;"
+}
+
+td.bold
+{
+	font-weight:bold;
+	font-size:17px;"
+}
+
+ul.ulist li
+{
+	margin-left: 1px;
+			list-style: none;
+			display: inline;
+}
+
+table.class
+ table ,th, tr, td
+{
+	border:1px solid black;
+}
+

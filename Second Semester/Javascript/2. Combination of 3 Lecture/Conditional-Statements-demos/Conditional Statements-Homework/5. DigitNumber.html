@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sort real numbers </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		<label for="first">Enter number:</label>
+		<input type="text" id="first"/>
+		<br />							  
+		<a href="#" onclick="ShowDigitName()">Result</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+		 function ShowDigitName()
+		{
+	                var first = jsConsole.readInteger("#first");
+			
+			switch (first)
+			{
+				case 1:  jsConsole.writeLine("One"); break;
+				case 2:  jsConsole.writeLine("Two"); break;
+				case 3:  jsConsole.writeLine("Three"); break;
+				case 4:  jsConsole.writeLine("Four"); break;
+				case 5:  jsConsole.writeLine("Five"); break;
+				case 6:  jsConsole.writeLine("Six"); break;
+				case 7:  jsConsole.writeLine("Seven"); break;
+				case 8:  jsConsole.writeLine("Eight"); break;
+				case 9:  jsConsole.writeLine("Nine"); break;
+				case 10: jsConsole.writeLine("Ten"); break;
+				default: jsconsole.writeLine("Incorrect input"); break;
+			}
+		}
+		</script>
+	</body>
+</html>

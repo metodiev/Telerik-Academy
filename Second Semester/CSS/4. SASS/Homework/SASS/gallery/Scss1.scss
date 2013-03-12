@@ -1,0 +1,145 @@
+
+$body-color:#9215F2; $link-color: #ffffff; $v-link-color: #646363; $width:200px;
+
+/*@import_'gradients.scss';*/
+
+body {
+	
+
+    body, header, div, form, nav, section, footer, article, aside {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    background-color: $body-color;
+    color: white;
+
+    #reg-form-container {
+        border-radius: 10px;
+        background-color: $body-color;
+        float: right;
+        margin-top: -100px;
+    }
+
+    button {
+        border: 1px solid;
+        border-style: outset;
+        border-radius: 10px;
+        padding: 8px 10px;
+        background-color: #B35EF3;
+    }
+
+    input {
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 2px 5px;
+        margin: 5px;
+        background-color: #B35EF3;
+    }
+
+    nav {
+        border: 1px solid black;
+        border-radius: 15px;
+        height: 40px;
+        width: 1030px;
+    }
+
+    #main-nav-list li {
+        font-size: 17px;
+        display: inline;
+    }
+
+    .sub-nav-list {
+        display: none;
+    }
+
+    .sub-nav-llist:hover {
+        display: block;
+        text-decoration: underline;
+    }
+
+
+
+    nav {
+        position: relative;
+        right: -27px;
+    }
+
+
+
+    section {
+        position: relative;
+        right: -10px;
+    }
+
+    .nav-list a {
+        display: inline;
+        color: white;
+        text-decoration: none;
+    }
+
+        .nav-list a:hover {
+            text-decoration: underline;
+        }
+
+
+    section article {
+        border: 1px solid black;
+        border-radius: 20px;
+        width: 1039px;
+        margin: 20px;
+    }
+
+    article header, article footer, article p {
+        margin: 20px;
+    }
+
+    section article footer a, article p {
+        text-decoration: none;
+        text-align: right;
+    }
+
+        section article footer a:visited {
+            color: silver;
+        }
+
+    aside {
+        float: right;
+        margin-top: -700px;
+		margin-right:-30px;
+    }
+
+        aside ul li {
+            font-size: 14px;
+            border: 1px solid black;
+            border-radius: 10px;
+            list-style: none;
+            
+            width: 300px;
+        }
+
+        aside ul, aside li, aside h2, aside p {
+			margin:20px;
+        }
+
+            aside ul li li {
+                padding: 0;
+                margin: 0;
+                border: none;
+            }
+
+        aside > ul > li ul li {
+            margin-top: 5px;
+            margin-bottom: 0px;
+            margin-right: -40px;
+            background: url(images/li-dot.png) no-repeat;
+            background-position: 0 50%;
+            padding-left: 25px;
+        }
+
+
+    footer {
+        text-align: center;
+        color: white;
+    }
+}

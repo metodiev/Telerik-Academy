@@ -1,0 +1,394 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+
+namespace FallingRocks
+{
+    class FallingRocks
+    {
+        //public static Queue<Dwarf> dwaftElements = new Queue<Dwarf>();
+        public static int right = 1;  // Right
+        public static int left = -1;  // Left
+        public static int sleep = 0;  // No moves
+        public static int direction; // Current direction
+
+        // Borders
+        public static int min;
+        public static int max;
+        public static int bottom;
+        public static int top = 3;
+        public static int currentDwaftPosition;
+
+        public static char[] dwaft = new char[] { '<', '(', '0', ')', '>' };
+        public static char[] rockSymbols = new char[] { '^', '@', '*', '&', '+', '%', '$', '#', '!', '.', ';' };
+        public static ConsoleColor[] colors = new ConsoleColor[] {
+            ConsoleColor.Blue,
+            ConsoleColor.Cyan,
+            ConsoleColor.DarkBlue,
+            ConsoleColor.DarkCyan,
+            ConsoleColor.DarkGray,
+            ConsoleColor.DarkGreen,
+            ConsoleColor.DarkMagenta,
+            ConsoleColor.DarkRed,
+            ConsoleColor.DarkYellow,
+            ConsoleColor.Gray,
+            ConsoleColor.Green,
+            ConsoleColor.Magenta,
+            ConsoleColor.Red,
+            ConsoleColor.White,
+            ConsoleColor.Yellow
+        };
+
+        // Current rocks
+        public static List<Rock> rocks = new List<Rock>();
+
+        // Random generator
+        public static Random random = new Random();
+
+        // Score
+        public static UInt32 score = 0;
+
+        // Difficulty
+        public static int rockSpeedRatio = 10;
+        public static int rockCountRatio = 70;
+        public static int rockMaxSize = 3; // from 0, real 2
+
+        public static int rockSizeNextIncrement = 1000;
+        public static int rockCountNextIncrement = 1000;
+        public static int rockSpeedNextRatio = 1000;
+
+        // Music
+        public static Thread oThreadSound = new Thread(new ThreadStart(playMusic));
+
+        static void Main()
+        {
+            int counter = 0;
+            
+            // Borders, restrictions, frames
+            PaintInterface();
+
+            // Initalizing rocks
+            GenerateRocks();
+            PrintRocks();
+
+            while (true)
+            {
+                counter++;
+
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo userInput = Console.ReadKey(true);
+
+                    if (userInput.Key == ConsoleKey.LeftArrow)
+                    {
+                        direction = left;
+                    }
+                    else if (userInput.Key == ConsoleKey.RightArrow)
+                    {
+                        direction = right;
+                    }
+                }
+                else
+                {
+                    direction = sleep;
+                }
+
+                // Generate the rocks :)
+                if (counter % rockCountRatio == 0)
+                {
+                    GenerateRocks();
+                }
+
+                // Move the rocks :)
+                if (counter % rockSpeedRatio == 0)
+                {
+                    MoveRocks();
+                }
+
+                MoveDwarf(direction);
+
+                if (counter > 2000000000)
+                {
+                    counter = 0;
+                }
+
+                Thread.Sleep(25);
+            }
+        }
+
+        public static void MoveDwarf(int directionDwarf)
+        {
+            currentDwaftPosition += directionDwarf;
+
+            if (currentDwaftPosition + 2 > max || currentDwaftPosition - 2 < min)
+            {
+                currentDwaftPosition -= directionDwarf;
+
+                return;
+            }
+
+            ClearDwarf(directionDwarf);
+
+            for (int i = currentDwaftPosition - 2, dwarfEntity = 0; i <= currentDwaftPosition + 2; i++, dwarfEntity++)
+            {
+                Console.SetCursorPosition(i, bottom);
+                Console.Write(dwaft[dwarfEntity]);
+            }
+        }
+
+        public static void ClearDwarf(int directionDwarf)
+        {
+            for (int i = currentDwaftPosition - 2; i <= currentDwaftPosition + 2; i++)
+            {
+                Console.SetCursorPosition(i - directionDwarf, bottom);
+                Console.Write(" ");
+            }
+        }
+
+        public static void ClearRock(int col, int row, int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                Console.ResetColor();
+                Console.SetCursorPosition(col + i, row);
+                Console.Write(" ");
+            }
+        }
+
+        public static void GenerateRocks()
+        {
+            int numRocks = random.Next(4);
+            Dictionary<int, int> tempPositions = new Dictionary<int, int>();
+
+            int sizeOfRock;
+            int col;
+            char rockSymbol;
+            ConsoleColor color;
+
+            for (int i = 0; i < numRocks; i++)
+            {
+                sizeOfRock = random.Next(1, rockMaxSize);
+                col = random.Next(0, max - sizeOfRock);
+                rockSymbol = rockSymbols[random.Next(11)];
+                color = colors[random.Next(15)];
+
+                while (!IsFreePosition(tempPositions, col, sizeOfRock))
+                {
+                    sizeOfRock = random.Next(1, rockMaxSize);
+                    col = random.Next(0, max - sizeOfRock);
+                    rockSymbol = rockSymbols[random.Next(11)];
+                    color = colors[random.Next(15)];
+                }
+
+                tempPositions.Add(col, sizeOfRock);
+                rocks.Add(new Rock(top, col, sizeOfRock, rockSymbol, color));
+            }
+        }
+
+        public static bool IsFreePosition(Dictionary<int, int> tempPositions, int col2, int size2)
+        {
+            foreach (KeyValuePair<int, int> pair in tempPositions)
+            {
+                if ((pair.Key >= col2 && pair.Key <= col2 + size2 - 1) || (pair.Key <= col2 && pair.Key + pair.Value - 1 >= col2))
+                {
+                    // Colision!!!
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static void PrintRocks()
+        {
+            foreach (Rock r in rocks)
+            {
+                Console.SetCursorPosition(r.col, r.row);
+                Console.ForegroundColor = r.color;
+
+                for (int i = 0; i < r.size; i++)
+                {
+                    Console.Write(r.rockSymbol);
+                }
+
+                Console.ResetColor();
+            }
+        }
+
+        public static void MoveRocks()
+        {
+            for (int i = 0; i < rocks.Count; i++)
+            {
+                if (rocks[i].row >= bottom)
+                {
+                    MeetingTheDwarf(rocks[i]);
+
+                    ClearRock(rocks[i].col, rocks[i].row, rocks[i].size);
+                    rocks.RemoveAt(i);
+
+                    score += (uint)rocks[i].size * 10;
+                    printScore();
+
+                    // Rock's size increment difficulty
+                    if (score > 0 && score % rockSizeNextIncrement == 0)
+                    {
+                        rockMaxSize++;
+                        rockSizeNextIncrement += 5000;
+                    }
+
+                    // Rock's count increment difficulty
+                    if (score > 0 && score % rockCountNextIncrement == 0)
+                    {
+                        rockCountRatio--;
+                        rockCountNextIncrement += 2000;
+                    }
+
+                    // Rock's speed increment difficulty
+                    if (score > 0 && score % rockSpeedNextRatio == 0)
+                    {
+                        rockSpeedRatio--;
+                        rockSpeedNextRatio += 6000;
+                    }
+
+                    continue;
+                }
+
+                ClearRock(rocks[i].col, rocks[i].row, rocks[i].size);
+
+                Rock rk = rocks[i];
+
+                rk.row = rocks[i].row + 1;
+                rocks[i] = rk;
+
+                Console.SetCursorPosition(rk.col, rk.row);
+                Console.ForegroundColor = rk.color;
+
+                for (int k = 0; k < rk.size; k++)
+                {
+                    Console.Write(rk.rockSymbol);
+                }
+
+                Console.ResetColor();
+            }
+        }
+
+        public static void printScore()
+        {
+            Console.SetCursorPosition(5, 1);
+
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
+
+            Console.Write("Total score: {0}", score);
+
+            Console.ResetColor();
+        }
+
+        public static void MeetingTheDwarf(Rock rock)
+        {
+            if ((rock.col >= currentDwaftPosition - 2 && rock.col <= currentDwaftPosition + 2) || (rock.col <= currentDwaftPosition - 2 && rock.col + rock.size - 1 >= currentDwaftPosition - 2))
+            {
+                int centerColumns = max / 2;
+                int centerRows = bottom / 2;
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+
+                for (int i = centerColumns - 8; i <= centerColumns + 9; i++)
+                {
+                    Console.SetCursorPosition(i, centerRows - 2);
+                    Console.Write("*");
+
+                    Console.SetCursorPosition(i, centerRows + 2);
+                    Console.Write("*");
+                }
+
+                for (int i = centerRows - 2; i <= centerRows + 2; i++)
+                {
+                    Console.SetCursorPosition(centerColumns - 8, i);
+                    Console.Write("*");
+                    Console.SetCursorPosition(centerColumns + 9, i);
+                    Console.Write("*");
+                }
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(centerColumns - 4, centerRows);
+                Console.Write("Game over!");
+
+                Console.ReadLine();
+                oThreadSound.Abort();
+
+                Environment.Exit(0);
+            }
+        }
+
+        public static void PaintInterface()
+        {
+            Console.CursorVisible = false;
+            Console.Title = "Falling Rocks by Pavel Petrov (2012)";
+
+            Console.WindowHeight = 45;
+            Console.WindowWidth = 90;
+
+            min = Console.WindowLeft;
+            max = Console.WindowWidth - 1;
+            bottom = Console.WindowHeight - 2;
+            currentDwaftPosition = max / 2;
+
+            Console.BufferHeight = Console.WindowHeight;
+            Console.BufferWidth = Console.WindowWidth;
+
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Blue;
+
+            for (int i = min; i < max; i++)
+            {
+                Console.SetCursorPosition(i, bottom + 1);
+                Console.Write(" ");
+            }
+
+            for (int i = min; i <= max; i++)
+            {
+                Console.SetCursorPosition(i, 0);
+                Console.Write(" ");
+                Console.SetCursorPosition(i, 1);
+                Console.Write(" ");
+                Console.SetCursorPosition(i, 2);
+                Console.Write(" ");
+            }
+
+            Console.ResetColor();
+
+            printScore();
+
+            // Sounds
+            oThreadSound.IsBackground = false;
+            oThreadSound.Start();
+        }
+
+        public static void playMusic()
+        {
+            StarWars.playStarWars();
+            Tetris.playTetris();
+            playMusic();
+        }
+
+        public struct Rock
+        {
+            public int row;
+
+            public int col;
+            public int size;
+            public ConsoleColor color;
+            public char rockSymbol;
+
+            public Rock(int row, int col, int size, char symbol, ConsoleColor color)
+            {
+                this.row = row;
+                this.col = col;
+                this.size = size;
+                this.color = color;
+                this.rockSymbol = symbol;
+            }
+        }
+    }
+}

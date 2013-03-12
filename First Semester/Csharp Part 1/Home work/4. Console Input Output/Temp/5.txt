@@ -1,0 +1,446 @@
+using System;
+using System.Threading.Tasks;
+using System.IO;
+ 
+class FallingRocks
+{
+    public struct MenuChoice
+    {
+        public int xCoord, yCoord, choice;
+ 
+        public MenuChoice(int choice)
+        {
+            this.choice = choice;
+            this.xCoord = 20;
+            this.yCoord = 10 + choice;
+        }
+    }
+ 
+    static ConsoleKey DetectKeyPress()
+    {
+        ConsoleKeyInfo key = new ConsoleKeyInfo();
+        key = Console.ReadKey();
+        return key.Key;
+    }
+ 
+    static void ShowInfo(int score, int level)
+    {
+        Console.ForegroundColor = ConsoleColor.Gray;
+ 
+        for (int i = 1; i <= 25; i++)
+        {
+            Console.SetCursorPosition(60+1,i);
+            Console.Write("|");
+        }
+ 
+        Console.SetCursorPosition(60 + 3, 1);
+        Console.Write("Score: {0}",score);
+        Console.SetCursorPosition(60 + 3, 2);
+        Console.Write("Level: {0}", level);
+ 
+    }
+ 
+    static bool Collision(int dwarfX, int rockX, int rockLength)
+    {
+        if (((dwarfX >= rockX) && (dwarfX <= (rockX + rockLength - 1))) ||
+            ((dwarfX + 2 >= rockX) && (dwarfX + 2 <= (rockX + rockLength - 1))) ||
+            ((dwarfX + 1 >= rockX) && (dwarfX + 1 <= (rockX + rockLength - 1))))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+ 
+    static void PlayGame()
+    {
+        char[] rocks = {'^', '@', '*', '&', '+', '%', '$', '#', '!', '.', ';'};
+ 
+        const int NumberOfColumns = 60;
+        const int NumberOfRows = 25;
+        const int MaxRockLength = 3;
+        const int MaxNumberOfRocks = 10;
+ 
+        int gameSpeed = 150;
+        int row = 0;
+        int position;
+        int score = 0;
+        int level = 1;
+        int numberOfRocks = 2;
+ 
+        bool sameCoordFlag = false;
+ 
+        int dwarfCoordX = 40;
+        int dwarfCoordY = 25;
+ 
+        Random rocksXPosition = new Random();
+        Random rocksPerRow = new Random();
+        Random randomRock = new Random();
+        Random randomRockLength = new Random();
+        Random randomColor = new Random();
+ 
+        int[,] rockCoordX = new int[NumberOfRows, MaxNumberOfRocks];
+        int[,] rockCoordY = new int[NumberOfRows, MaxNumberOfRocks];
+        int[,] rockLength = new int[NumberOfRows, MaxNumberOfRocks];
+        int[,] rockSymbol = new int[NumberOfRows, MaxNumberOfRocks];
+        int[,] rockColor = new int[NumberOfRows, MaxNumberOfRocks];
+ 
+        System.ConsoleColor[] consoleColors = {ConsoleColor.Blue, ConsoleColor.Cyan,
+                                           ConsoleColor.DarkBlue, ConsoleColor.DarkCyan,
+                                           ConsoleColor.DarkGray, ConsoleColor.DarkGreen,
+                                           ConsoleColor.DarkMagenta,ConsoleColor.DarkYellow,
+                                           ConsoleColor.Gray, ConsoleColor.Green,
+                                           ConsoleColor.Magenta, ConsoleColor.Red,
+                                           ConsoleColor.White, ConsoleColor.Yellow};
+ 
+        //initialize the coordinates of the rocks, their length and symbols
+        for (int i = 0; i < MaxNumberOfRocks; i++)
+        {
+            for (int j = 0; j < NumberOfRows; j++)
+            {
+                rockCoordX[j, i] = 0;
+                rockCoordY[j, i] = 1;
+                rockLength[j, i] = 0;
+                rockSymbol[j, i] = 0;
+            }
+        }
+ 
+        while (true)
+        {
+            Console.Clear();
+ 
+            ShowInfo(score,level);
+ 
+            for (int rock = 0; rock < rocksPerRow.Next(numberOfRocks); rock++)
+            {
+                //Check if there are two rocks on the same possition
+                do
+                {
+                    sameCoordFlag = false;
+                    position = rocksXPosition.Next(NumberOfColumns) + 1;
+                    for (int checkRock = 0; checkRock < rock; checkRock++)
+                    {
+                        if (position == rockCoordX[row, checkRock])
+                        {
+                                    sameCoordFlag = true;
+                        }
+                    }
+ 
+                    if (!sameCoordFlag)
+                    {
+                        rockCoordX[row, rock] = position;
+                    }
+                } while (sameCoordFlag);
+ 
+                for (int i = 0; i < randomRockLength.Next(MaxRockLength) + 1; i++)
+                {
+                    rockLength[row, rock] = randomRockLength.Next(randomRockLength.Next(MaxRockLength)) + 1;
+                }
+ 
+                rockCoordY[row, rock] = 1;
+                rockSymbol[row, rock] = randomRock.Next(11);
+                rockColor[row, rock] = randomColor.Next(14);
+            }
+ 
+            for (int updateRow = 0; updateRow < NumberOfRows; updateRow++)
+            {
+                for (int updateRock = 0; updateRock < numberOfRocks; updateRock++)
+                {
+                    if (rockCoordY[updateRow, updateRock] < NumberOfRows)
+                    {
+                        rockCoordY[updateRow, updateRock]++;
+                    }
+                    else
+                    {
+                        if (Collision(dwarfCoordX, rockCoordX[updateRow, updateRock], rockLength[updateRow, updateRock]))
+                        {
+                            GameOver(score);
+                            return;
+                        }
+                        rockCoordX[updateRow, updateRock] = 0;
+                        rockCoordY[updateRow, updateRock] = 1;
+                    }
+ 
+                    //Print the existing rocks on the screen
+                    if (rockCoordX[updateRow, updateRock] > 0)
+                    {
+                        Console.SetCursorPosition(rockCoordX[updateRow, updateRock], rockCoordY[updateRow, updateRock]);
+                        Console.ForegroundColor = consoleColors[rockColor[updateRow, updateRock]];
+                        Console.Write("".PadLeft(rockLength[updateRow, updateRock], rocks[rockSymbol[updateRow, updateRock]]));
+                    }
+                }
+            }
+ 
+            //Print the dwarf
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.SetCursorPosition(dwarfCoordX,dwarfCoordY);
+            Console.Write("(O)");
+ 
+            if (Console.KeyAvailable)
+            {
+                switch (DetectKeyPress())
+                {
+                    case ConsoleKey.LeftArrow:
+                        if (dwarfCoordX > 0)
+                        {
+                            dwarfCoordX--;
+                        }
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (dwarfCoordX < 60-2)
+                        {
+                            dwarfCoordX++;
+                        }
+                        break;
+                    case ConsoleKey.Escape:
+                        return;
+                }
+ 
+                System.Threading.Thread.Sleep(gameSpeed);
+                while (Console.KeyAvailable) Console.ReadKey(true); //Read from the keyboard buffer all entered keys while the thread is paused
+            }
+            else
+            {
+                System.Threading.Thread.Sleep(gameSpeed);
+            }
+ 
+            if (row < NumberOfRows - 1)
+            {
+                row++;
+            }
+            else
+            {
+                row = 0;
+                score += 10;
+                if ((score == level * level * 20) && (numberOfRocks < MaxNumberOfRocks))
+                {
+                    level++;
+                    numberOfRocks++;
+                }
+            }
+        }
+    }
+ 
+    private static void GameOver(int score)
+    {
+        string name;
+        string fileName = "highscore.txt";
+        string[] namesAndScores = new string[10];
+        string[] stringScores = new string[10];
+        string[] newScores = new string[10];
+        int[] scores = new int[10];
+        int position = 11;
+        bool success;
+ 
+       
+ 
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.SetCursorPosition(30,10);
+        Console.Write("GAME OVER");
+        Console.SetCursorPosition(25, 15);
+        Console.Write("Your score: {0}",score);
+        Console.SetCursorPosition(20, 16);
+        Console.Write("Enter your name: ");
+        Console.CursorVisible = true;
+        name = Console.ReadLine();
+        Console.CursorVisible = false;
+ 
+        if (File.Exists(fileName) && (new FileInfo(fileName).Length > 0 ))
+        {
+           
+            var iStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var oStream = new FileStream(fileName, FileMode.Open, FileAccess.Write, FileShare.Read);
+ 
+            var streamRead = new StreamReader(iStream);
+            var streamWrite = new StreamWriter(oStream);
+ 
+            for (int i = 0; i < 10; i++)
+            {
+                namesAndScores[i] = streamRead.ReadLine();
+            }
+ 
+            for (int i = 0; i < 10; i++)
+            {
+                stringScores[i] = namesAndScores[i].Substring(12);
+                success = int.TryParse(stringScores[i], out scores[i]);
+            }
+ 
+            for (int i = 9; i >= 0; i--)
+            {
+                if (score > scores[i])
+                {
+                    position = i;
+                }
+            }
+ 
+            for (int i = 0; i < 10; i++)
+            {
+                if (position == i)
+                {
+                    streamWrite.WriteLine(name.PadRight(10, ' ') + ": " + score);
+                    streamWrite.Flush();
+                }
+                else
+                {
+                    if (position > i)
+                    {
+                        streamWrite.WriteLine(namesAndScores[i]);
+                        streamWrite.Flush();
+                    }
+                    else
+                    {
+                        streamWrite.WriteLine(namesAndScores[i - 1]);
+                        streamWrite.Flush();
+                    }
+                }
+            }
+ 
+            oStream.Close();
+            iStream.Close();
+        }
+        else
+        {
+            var oStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+            var streamWrite = new StreamWriter(oStream);
+ 
+            streamWrite.WriteLine(name.PadRight(10, ' ') + ": " + score);
+           
+            for (int i = 1; i < 10; i++)
+            {
+                streamWrite.WriteLine("0".PadLeft(13, ' '));
+                streamWrite.Flush();
+            }
+ 
+            oStream.Close();
+        }
+ 
+        HighScore();
+    }
+ 
+    static void Help()
+    {
+        string helpString;
+        helpString = "Falling Rocks is a game where you are a small dwarf which ";
+        helpString += "stays at the bottom\n\rof the screen and can move left and right ";
+        helpString += "(by the arrows keys). A number of\n\rrocks of different sizes and ";
+        helpString += "forms constantly fall down and you need to avoid\n\ra crash.";
+        helpString += "Rocks are the symbols: ^, @, *, &, +, %, $, #, !, ., ;\n\r";
+        helpString += "And the dwarf is: (O)\n\n\n\r";
+        helpString += "Good luck!";
+ 
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.SetCursorPosition(0,0);
+        Console.Write(helpString);
+        Console.SetCursorPosition(0,24);
+        Console.Write("Press ENTER to go back to the main menu!");
+ 
+        Console.ReadLine();
+    }
+ 
+    static void HighScore()
+    {
+        string fileName = "highscore.txt";
+ 
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.SetCursorPosition(15, 2);
+        Console.Write("High Scores:");
+        Console.SetCursorPosition(20,5);
+ 
+        if (File.Exists(fileName))
+        {
+            var iStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var streamRead = new StreamReader(iStream);
+ 
+            for (int i = 0; i < 10; i++)
+            {
+                Console.SetCursorPosition(20, 5 + i);
+                Console.Write(streamRead.ReadLine());
+            }
+ 
+            iStream.Close();
+        }
+        else
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Console.SetCursorPosition(20, 5 + i);
+                Console.Write("0".PadLeft(13,' '));
+            }
+        }
+ 
+        Console.SetCursorPosition(15, 22);
+        Console.Write("Press ENTER!");
+ 
+        Console.ReadLine();
+    }
+ 
+    static void ShowMenu(int menuChoice)
+    {
+        MenuChoice choice = new MenuChoice(menuChoice);
+ 
+        while (true)
+        {
+            //Print the menu:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Gray;
+ 
+            Console.SetCursorPosition(25, 10);
+            Console.Write("Start New Game");
+            Console.SetCursorPosition(25, 11);
+            Console.Write("Help");
+            Console.SetCursorPosition(25, 12);
+            Console.Write("High Scores");
+            Console.SetCursorPosition(25, 13);
+            Console.Write("Quit");
+ 
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(choice.xCoord, choice.yCoord);
+            Console.Write(">>");
+            Console.SetCursorPosition(choice.xCoord + 22, choice.yCoord);
+            Console.Write("<<");
+       
+            switch (DetectKeyPress())
+            {
+                case ConsoleKey.UpArrow:
+                    if (choice.choice > 0)
+                    {
+                        choice.choice--;  
+                    }
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (choice.choice < 3)
+                    {
+                        choice.choice++;
+                    }
+                    break;
+                case ConsoleKey.Enter:
+                    switch (choice.choice)
+                        {
+                        case 0: PlayGame();
+                            break;
+                        case 1: Help();
+                            break;
+                        case 2: HighScore();
+                            break;
+                        case 3:
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.SetCursorPosition(0,24);
+                            return;
+                        }
+                    break;
+            }
+            choice.yCoord = 10 + choice.choice;
+        }
+    }
+ 
+    static void Main()
+    {
+        Console.CursorVisible = false;
+        ShowMenu(0);
+    }
+}

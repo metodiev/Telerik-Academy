@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Number Pronunciation</title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		<label for="first">Enter number:</label>
+		<input type="text" id="first"/>
+		<br />							  
+		<a href="#" onclick="Pronunciation()">Result</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+		
+		
+		function Pronunciation()
+		{
+			
+	                var first = jsConsole.readInteger("#first");
+			
+			var  pronunciation = new Array(1000);
+	
+			pronunciation[0] = "zero";
+			pronunciation[1] = "one";
+			pronunciation[2] = "two";
+			pronunciation[3] = "three";
+			pronunciation[4] = "four";
+			pronunciation[5] = "five";
+			pronunciation[6] = "six";
+			pronunciation[7] = "seven";
+			pronunciation[8] = "eight";
+			pronunciation[9] = "nine";
+			pronunciation[10] = "ten";
+			pronunciation[11] = "eleven";
+			pronunciation[12] = "twelve";
+			pronunciation[13] = "thirteen";
+			pronunciation[14] = "fourteen";
+			pronunciation[15] = "fifteen";
+			pronunciation[16] = "sixteen";
+			pronunciation[17] = "seventeen";
+			pronunciation[18] = "eigteen";
+			pronunciation[19] = "nineteen";
+			pronunciation[20] = "twenty";
+		
+			pronunciation[30] = "thirty";
+			pronunciation[40] = "forty";
+			pronunciation[50] = "fifty";
+			pronunciation[60] = "sixty";
+			pronunciation[70] = "seventy";
+			pronunciation[80] = "eighty";
+			pronunciation[90] = "ninety";
+			pronunciation[100] = "hundred";
+				
+			for( i = 21, p = 20; i < 100; i+=10, p+=10)
+			{
+					
+				for( j = 1; j < 10; j++)
+				{
+					
+					var total = pronunciation[p] + pronuciation[i];
+					jsConsole.writeLine(total);
+				}
+				
+				
+			}
+			
+			for(y = 0; y < pronunciation.length; y++)
+			{
+				jsConsole.writeLine(pronunciation[y]);
+			}
+			
+		}
+		</script>
+	</body>
+</html>

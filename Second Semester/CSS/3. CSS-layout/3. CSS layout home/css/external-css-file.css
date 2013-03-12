@@ -1,0 +1,86 @@
+body, fieldset, p { margin: 0; }
+
+fieldset { border: none; } 
+
+body
+ {
+	background: #3B3B3B;
+	color: #A9A9A9;
+	font-family:"Times New Roman", Times, serif;
+	font-size:17px;
+}
+
+h1 
+{
+	color: #F8D612;
+	text-transform: lowercase;
+	font-weight: normal;
+}
+
+a 
+{
+	text-decoration:none;
+	color:white;
+}
+
+legend 
+{font-size:25px;}	
+
+.login
+{
+
+	background-image:url('../images/monitor.jpg');
+	background-repeat: no-repeat;
+	background-position: 5px 4px;
+	padding-left: 33px;
+}	
+
+	
+.login {
+	padding: 20px 10px 20px 55px;
+	background: #343434 url(images/'monitor.jpg');
+	box-shadow: inset 0 -8px 10px #292929;
+	color: #fff;
+}
+
+ .login legend, .login input, .login button {
+	float: left;
+	 margin-left: 15px; 
+	 
+} 
+
+
+.login input { padding-left: 10px; }
+
+.login ::-webkit-input-placeholder { color: #000; }
+.login      :-ms-input-placeholder { color: #000; }
+.login           :-moz-placeholder { color: #000; }
+
+
+.article {
+	padding: 0 20px;
+	width: 640px;
+}
+
+ 
+.btn
+{ 
+	display: inline-block;
+	margin-top: 0px;
+	padding: 2px 12px 2px 18px;
+	line-height: 1.5em; 
+    color:white;
+
+}
+
+.btn
+ {
+	border-radius:10px;
+	border-bottom: 4px ;
+	border-left: 2px ;
+	background: #ED0505;
+	-webkit-box-shadow: 1px 1px 5px 0px white;
+  -moz-box-shadow: 1px 1px 5px 0px white;
+  box-shadow: 1px 1px 5px 0px white; 
+	
+}

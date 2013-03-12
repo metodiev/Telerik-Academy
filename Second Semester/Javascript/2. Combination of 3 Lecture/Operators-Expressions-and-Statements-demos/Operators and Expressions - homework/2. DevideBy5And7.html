@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+ <head>
+	    <title>Devide by 5 and 7 </title>
+	    <link href="styles/js-console.css" rel="stylesheet" />
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+    </head>
+    <body>
+        <label for="tb-text">Input</label> 
+        <input type="text" id="tb-text">
+        <br/>
+        <a href="#" onclick="onInputNumberButtonClick()">Input</a>
+	    <div id="console">
+	    </div>
+	    <div id="js-console"> </div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+			 function onInputNumberButtonClick() {
+	                var number = jsConsole.readInteger("#tb-text");
+			var expression = ((number%7)== 0 && (number%5)== 0);
+			
+			if (expression)
+			{
+				jsConsole.writeLine("The number is devide by 7 and 5 ");
+			}
+			
+			else
+			{
+				
+				jsConsole.writeLine("The number can't  be devided by 7 and 5");
+			}
+		}
+		</script>
+	</body>
+</html>

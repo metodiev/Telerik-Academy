@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Check inner point in circle</title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		
+	<label for="x">X point:</label>
+		<input type="text" id="x"/>
+		<br />							  
+		<label for="y">Y point: </label>
+		<input type="text" id="y"/>
+		<br />
+		<a href="#" onclick="Points()">Input</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+			function Points() {
+				
+	                var x = jsConsole.readFloat("#x");
+			var y = jsConsole.readFloat("#y");
+			
+			var expressionMath = Math.sqrt((x * x) + (y * y));
+		
+			if (expressionMath <= 5)
+			{
+			   jsConsole.writeLine("Point (x, y) are in circle K(0, 5)");
+			}
+			else
+			{
+			    jsConsole.writeLine("Point (x, y) are out of circle K(0, 5)");
+			}
+		}
+		</script>
+	</body>
+</html>

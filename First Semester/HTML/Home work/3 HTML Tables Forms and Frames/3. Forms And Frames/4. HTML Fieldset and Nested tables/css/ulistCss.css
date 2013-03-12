@@ -1,0 +1,13 @@
+ul.ulist li
+{
+	margin-left: 1px;
+			list-style: none;
+			display: inline;
+			font-weight:bold;
+			font-size:17px;"
+}
+
+table.border
+{
+	border:2px solid black;
+}

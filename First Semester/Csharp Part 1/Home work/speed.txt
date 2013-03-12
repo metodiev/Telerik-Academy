@@ -1,0 +1,4 @@
+ 
+DateTime startTime = DateTime.Now;
+DateTime finishtime = DateTime.Now;
+        Console.WriteLine(finishtime - startTime);

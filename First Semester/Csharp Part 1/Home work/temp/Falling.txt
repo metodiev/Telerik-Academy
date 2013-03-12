@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.IO;
+
+
+class FallingRocksGame
+{
+    static void Main()
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+        string playerName;
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.Title = ("Falling Rocks");
+        Console.WriteLine();
+        Console.Write("What's your name:");
+        playerName = Console.ReadLine();
+        Console.WriteLine();
+        Console.WriteLine("Press enter to continue");
+        Console.ReadLine();
+        Console.Clear();
+        startGame();
+        string dwarf = "<..(0)..>";
+        string[] symbols = new string[] {" ^, @, *, &, +, %, $, #, !, ., ;, -"};}
+
+        static void screen()
+    {
+        Console.WindowHeight = 50;
+        Console.WindowWidth = 50;
+        Console.BufferHeight = Console.WindowHeight;
+        Console.BufferWidth = Console.WindowWidth;
+    }
+
+         private static void startGame()
+    {
+        screen();
+        setPosition();
+        score = 0;
+    }      
+
+     static void setPosition()
+    {
+        Console.SetCursorPosition(Console.WindowHeight - 1, Console.WindowWidth / 2 - 1);
+        dwarfPosition = Console.WindowWidth / 2 - 1;
+        drowDwarf();
+    }

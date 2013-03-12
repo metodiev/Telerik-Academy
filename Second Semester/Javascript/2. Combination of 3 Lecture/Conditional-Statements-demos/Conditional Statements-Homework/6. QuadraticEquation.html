@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Quadratic Equation </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		<label for="first">First coefficient a:</label>
+		<input type="text" id="first"/>
+		<br />							  
+		<label for="second">Second coefficient b : </label>
+		<input type="text" id="second"/>
+		<br />
+		<label for="third">Third coefficient c: </label>
+		<input type="text" id="third"/>
+		<br />
+		<a href="#" onclick="QuadraticEquation()">Result</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+		 function QuadraticEquation()
+		{
+	                var a = jsConsole.readFloat("#first");
+			var b = jsConsole.readFloat("#second");
+			var c = jsConsole.readFloat("#third");
+			
+			//D = b^2 - 4*a*c;
+			//x1,2 = -b +- sqrt(D) / 2*a
+			
+			var D = (Math.pow(b,2)) - ((4 *a)*c);
+			if(D < 0)
+			{
+				jsConsole.writeLine("roots are imaginary");
+				exit();
+			}
+			
+			if (D == 0)
+			{
+				jsConsole.writeLine("roots are equal");
+				exit();
+			}
+			
+			var x1 = -b - ((Math.sqrt(D))/2*a);
+			var x2 = -b + ((Math.sqrt(D))/2*a);
+			
+			jsConsole.writeLine("First root" + " " + x1);
+			jsConsole.writeLine("second root" + " " + x2);
+			
+		}
+		</script>
+	</body>
+</html>

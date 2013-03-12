@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <title>N number</title>
+	    <link href="styles/js-console.css" rel="stylesheet" />
+        <link href="styles/inputStyle.css" rel="stylesheet" />
+    </head>
+    <body>
+        <label for="tb-text">Input</label> 
+        <input type="text" id="tb-text">
+        <br/>
+        <a href="#" onclick="Number()">Number</a>
+	    <div id="console">
+	    </div>
+
+	    <div id="js-console"> </div>
+	        <script src="scripts/js-console.js"></script>
+	        <script>
+                    function numOrdA(a, b){ return (a-b); }
+	            function Number() {
+                        
+                        var number = jsConsole.read("#tb-text")
+                        var array = number.split(" ");
+	                
+                        console.log(array);
+                        var arr = new Array();
+                        console.log(arr);
+                        arr.splice(array[0],array[1],array.slice(2,array.length-2))
+                       // for (var i = 1; i < array.lenght-1; i++)
+                        //{                            
+                          //  arr.splice(i, 1, array[i+1]);
+                            
+                       // }
+                        arr.sort(numOrdA);
+                        jsConsole.writeLine(arr.length-1);
+                        jsConsole.writeLine(arr[0]);
+	            }
+	        </script>
+    </body>
+</html>

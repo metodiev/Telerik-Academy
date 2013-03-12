@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sort real numbers </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		<label for="first">First :</label>
+		<input type="text" id="first"/>
+		<br />							  
+		<label for="second">Second : </label>
+		<input type="text" id="second"/>
+		<br />
+		<label for="third">Third : </label>
+		<input type="text" id="third"/>
+		<br />
+		<label for="fourth">Fourth : </label>
+		<input type="text" id="fourth"/>
+		<br />
+		<label for="fifth">Fifth: </label>
+		<input type="text" id="fifth"/>
+		<br />
+		<a href="#" onclick="GreaterNumber()">Result</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+		function numOrdA(a, b){ return (a-b); }
+		
+		 function GreaterNumber()
+		{
+	                var first = jsConsole.readFloat("#first");
+			var second = jsConsole.readFloat("#second");
+			var third = jsConsole.readFloat("#third");
+			var fourth = jsConsole.readFloat("#fourth");
+			var fifth = jsConsole.readFloat("#fifth");
+
+			var arr = new Array(5);
+			arr = [first, second, third, fourth, fifth];
+			arr.sort(numOrdA);
+
+			var greatestNumber = arr.length -1;
+			jsConsole.writeLine("The greatest number is:" + " " + arr[greatestNumber]);	
+		}
+		</script>
+	</body>
+</html>

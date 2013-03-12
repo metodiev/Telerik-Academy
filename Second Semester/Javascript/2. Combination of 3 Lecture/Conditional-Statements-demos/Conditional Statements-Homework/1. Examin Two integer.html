@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Examin two integers numbers </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+		<label for="first">First number:</label>
+		<input type="text" id="first"/>
+		<br />							  
+		<label for="second">Second number: </label>
+		<input type="text" id="second"/>
+		<br />
+		<a href="#" onclick="BiggerNumber()">Circle</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+			
+			function BiggerNumber() {
+
+	                var first = jsConsole.readInteger("#first");
+			var second = jsConsole.readInteger("#second");
+			
+			if( first > second)
+			{
+				var temp = first;
+				first = second;
+				second = temp;
+			}
+			jsConsole.writeLine("First number is" + " " + first);
+			jsConsole.writeLine("Second number is " + " " + second)
+			
+		}
+		</script>
+	</body>
+</html>

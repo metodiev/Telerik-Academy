@@ -1,0 +1,12 @@
+body input {display:none;}
+  body ul {
+    list-style: none; }
+  body ul li {
+    display: inline-block;
+    margin-right: 10px; }
+  body .gal {
+    height: 150px;
+    width: 150px; }
+
+ 
+

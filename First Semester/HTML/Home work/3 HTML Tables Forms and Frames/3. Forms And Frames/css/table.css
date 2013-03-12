@@ -1,0 +1,30 @@
+table.table  table, tr, td
+{
+	border:1px solid silver;
+}
+
+thead.thead 
+{
+	background-color:#E8E8E8 ;
+	border: 1px solid #E8E8E8 ;
+}
+
+tfoot td 
+{
+	background-color: #E8E8E8;
+	border: 1px solid #E8E8E8;
+}
+
+tfoot a.orange
+{
+	border: 2px solid orange;
+}
+
+tfoot a
+{
+	color:#101010;
+	text-decoration: none;
+	padding: 2px;
+}
+
+

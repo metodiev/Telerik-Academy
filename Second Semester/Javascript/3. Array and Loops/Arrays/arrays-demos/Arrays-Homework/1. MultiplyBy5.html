@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <title>N number</title>
+	    <link href="styles/js-console.css" rel="stylesheet" />
+        <link href="styles/inputStyle.css" rel="stylesheet" />
+    </head>
+    <body>
+        <label for="tb-text">Input</label> 
+        <input type="text" id="tb-text">
+        <br/>
+        <a href="#" onclick="Number()">Number</a>
+	    <div id="console">
+	    </div>
+
+	    <div id="js-console"> </div>
+	        <script src="scripts/js-console.js"></script>
+	        <script>
+	            function Number() {
+			arr = new Array(20);
+			
+	                var number = jsConsole.readInteger("#tb-text");
+
+	                for(var i = 0; i < number; i++)
+			{
+			    arr[i] = i*5;
+			
+			}
+			
+			for(var i = 0; i < number; i++)
+			{
+		
+			    jsConsole.writeLine(arr[i]);
+			}
+	            }
+	        </script>
+    </body>
+</html>

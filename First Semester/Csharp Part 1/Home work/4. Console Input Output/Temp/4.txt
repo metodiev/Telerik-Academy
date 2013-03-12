@@ -1,0 +1,219 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+ 
+class Game
+{
+    struct Rock
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public char RockSymbol { get; set; }
+    }
+ 
+    static int playerPosition = 0;
+    static List<Rock> rocks = new List<Rock>();
+    static Random randomGenerator = new Random();
+    static bool shouldDropRock = false;
+    static bool continueGame = true;
+    static int playerScore = 0;
+    static int rockSpeed = 500;
+ 
+    private static void RemoveScrolls()
+    {
+        Console.BufferHeight = Console.WindowHeight;
+        Console.BufferWidth = Console.WindowWidth;
+        Console.CursorVisible = false;
+    }
+ 
+    private static void DrawElement(int x, int y, string symbols)
+    {
+        Console.SetCursorPosition(x, y);
+        Console.Write(symbols);
+    }
+ 
+    private static void DrawPlayer()
+    {
+        DrawElement(playerPosition, Console.WindowHeight - 1, "(0)");
+    }
+ 
+    private static void ClearPlayer()
+    {
+        DrawElement(playerPosition, Console.WindowHeight - 1, "   ");
+    }
+ 
+    private static void MovePlayer()
+    {
+        if (Console.KeyAvailable)
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            if (keyInfo.Key == ConsoleKey.LeftArrow)
+            {
+                if (playerPosition > 0)
+                {
+                    ClearPlayer();
+                    playerPosition--;
+                    DrawPlayer();
+                }
+            }
+            else if (keyInfo.Key == ConsoleKey.RightArrow)
+            {
+                if (playerPosition < Console.WindowWidth-4)
+                {
+                    ClearPlayer();
+                    playerPosition++;
+                    DrawPlayer();
+                }
+            }
+ 
+            //Most Right Position Of the Player Bug Fix
+            if (Console.CursorLeft == Console.WindowWidth - 1)
+            {
+                Console.SetCursorPosition(0, 0);
+            }
+ 
+        }
+    }
+ 
+    private static void RemoveBottomRocks()
+    {
+        for (int i = 0; i < rocks.Count; i++)
+        {
+            if (rocks[i].Y == Console.WindowHeight)
+            {
+                DrawElement(rocks[i].X, rocks[i].Y - 1, " ");
+                rocks.Remove(rocks[i]);
+            }
+        }
+    }
+ 
+    private static void AddNewRock()
+    {
+        Rock rock = new Rock()
+        {
+            X = randomGenerator.Next(0, Console.WindowWidth - 1),
+            Y = 0
+        };
+ 
+        switch(randomGenerator.Next(1,12))
+        {
+            case 1:
+                rock.RockSymbol = '^';break;
+            case 2:
+                rock.RockSymbol = '@'; break;
+            case 3:
+                rock.RockSymbol = '&'; break;
+            case 4:
+                rock.RockSymbol = '%'; break;
+            case 5:
+                rock.RockSymbol = '$'; break;
+            case 6:
+                rock.RockSymbol = '#'; break;
+            case 7:
+                rock.RockSymbol = '!'; break;
+            case 8:
+                rock.RockSymbol = '.'; break;
+            case 9:
+                rock.RockSymbol = ';'; break;
+            case 10:
+                rock.RockSymbol = '-'; break;
+            case 11:
+                rock.RockSymbol = '*'; break;
+            default:
+                rock.RockSymbol = '+'; break;
+        }
+ 
+        rocks.Add(rock);
+    }
+ 
+    private static void UpdateRocksPosition()
+    {
+        for (int i = 0; i < rocks.Count; i++)
+        {
+            //Clear rock if neccessary
+            if (rocks[i].Y > 0)
+            {
+                DrawElement(rocks[i].X, rocks[i].Y - 1, " ");
+            }
+ 
+            DrawElement(rocks[i].X, rocks[i].Y, rocks[i].RockSymbol.ToString());
+ 
+            //Update rock position
+            Rock tempItem = rocks[i];
+            tempItem.Y++;
+            rocks[i] = tempItem;
+        }
+    }
+ 
+    private static void DropRocks()
+    {
+        RemoveBottomRocks();
+        AddNewRock();
+        UpdateRocksPosition();
+    }
+ 
+    private static bool CheckForCollision()
+    {
+        foreach (var item in rocks)
+        {
+            if ((item.Y >= Console.WindowHeight - 1) && (item.X >= playerPosition && item.X <= playerPosition + 2))
+            {
+                return true;
+            }
+        }
+ 
+        return false;
+    }
+ 
+    private static void SetPlayerInitialPosition()
+    {
+        playerPosition = Console.WindowWidth / 2 - 2;
+        DrawPlayer();
+    }
+ 
+    private static void ShowResult()
+    {
+        Console.Clear();
+        Console.WriteLine("Game Over!");
+        Console.WriteLine("Score: {0}",playerScore);
+    }
+ 
+    private static void ChangeRockSpeed()
+    {
+        while (continueGame)
+        {
+            shouldDropRock = true;
+            if (rockSpeed > 50)
+            {
+                rockSpeed -= 2;
+            }
+            Thread.Sleep(rockSpeed);
+        }
+    }
+ 
+    static void Main()
+    {
+        RemoveScrolls();
+        SetPlayerInitialPosition();
+        Thread changeRockIntervalThread = new Thread(ChangeRockSpeed);
+        changeRockIntervalThread.Start();
+ 
+        while (true)
+        {
+            MovePlayer();
+            if (shouldDropRock)
+            {
+                DropRocks();
+                shouldDropRock = false;
+                playerScore++;
+            }
+ 
+            if (CheckForCollision())
+            {
+                continueGame = false;
+                ShowResult();
+                break;
+            }
+        }
+    }
+}

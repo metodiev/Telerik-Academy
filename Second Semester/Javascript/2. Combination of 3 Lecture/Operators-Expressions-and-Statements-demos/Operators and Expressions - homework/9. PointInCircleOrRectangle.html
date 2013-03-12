@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Trapezoid's area </title>
+		<link href="styles/inputStyle.css" rel="stylesheet" />
+		<link href="styles/js-console.css" rel="stylesheet" />
+	</head>
+	<body>
+	<label for="x">X point:</label>
+		<input type="text" id="x"/>
+		<br />							  
+		<label for="y">Y point: </label>
+		<input type="text" id="y"/>
+		<br />
+		<a href="#" onclick="Points()">Circle</a>
+		<a href="#" onclick="Rectangle()">Rectangle</a>
+		<div id="js-console"></div>
+	        <script src="scripts/js-console.js"></script>
+		<script>
+			function Points() {
+				
+	                var x = jsConsole.readFloat("#x");
+			var y = jsConsole.readFloat("#y");
+			
+			var expressionMath = Math.sqrt((x * x) + (y * y));
+		
+			if (expressionMath <= 9)
+			{
+			   jsConsole.writeLine("Point (x, y) are in circle K(1, 1), 3");
+			}
+			else
+			{
+			    jsConsole.writeLine("Point (x, y) are out of circle K(1, 1), 3");
+			}
+		}
+		function Rectangle() {
+			//R(top=1, left=-1, width=6, height=2)
+	                var x = jsConsole.readFloat("#x");
+			var y = jsConsole.readFloat("#y");	
+			
+			if (((x >= (-1)) && (x <= 5)) && ((y <= 1 ) & (y  >= -1)))
+			{
+			   jsConsole.writeLine("Point (x, y) are in rectangle");
+			}
+			else
+			{
+			    jsConsole.writeLine("Point (x, y) are out of rectangle");
+			}
+		}
+		</script>
+	</body>
+</html>
